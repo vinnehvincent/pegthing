@@ -54,4 +54,8 @@
             13 {:pegged true, :connections {15 14, 11 12, 6 9, 4 8}},
             14 {:pegged true, :connections {12 13, 5 9}},
             15 {:pegged true, :connections {13 14, 6 10}},
-            :rows 5} (new-board 5)))))
+            :rows 5} (new-board 5))))
+  (testing "Moving pegs"
+    (testing "is a position pegged?"
+      (defn board (new-board [15]))
+      (is (= true (pegged? board 1))))))
