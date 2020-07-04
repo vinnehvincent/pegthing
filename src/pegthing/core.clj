@@ -73,7 +73,7 @@
             [connect-right connect-down-right connect-down-left])))
 
 (defn new-board
-  "Create a new board with the specicified number of rows"
+  "Create a new board with the specified number of rows"
   [rows]
   (let [initial-board {:rows rows}
         max-pos (row-tri rows)]

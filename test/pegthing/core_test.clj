@@ -4,7 +4,7 @@
 (deftest pegthing-test
   (testing "Tri function"
     (is (= '(1 3 6 10 15) (take 5 tri))))
-  (testing "Tringaular?"
+  (testing "Triangular?"
     (is (= true (triangular? 6)))
     (is (= false (triangular? 5))))
 
