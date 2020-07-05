@@ -2,7 +2,7 @@
   (:require [clojure.set :as set])
   (:gen-class))
 
-;(declare succesful-move prompt-move game-over query-rows)
+(declare succesful-move prompt-move game-over query-rows)
 
 (defn -main
   "I don't do a whole lot ... yet."
@@ -126,3 +126,4 @@
   [board]
   (some (comp not-empty (partial valid-moves board))
         (map first (filter #(get (second %) :pegged) board))))
+(def )
