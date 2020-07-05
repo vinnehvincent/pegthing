@@ -126,4 +126,32 @@
   [board]
   (some (comp not-empty (partial valid-moves board))
         (map first (filter #(get (second %) :pegged) board))))
-(def )
+
+(def alpha-start 97)
+(def alpha-end 123)
+(def letters (map (comp str char) (range alpha-start alpha-end)))
+(def pos-chars 3)
+
+(def ansi-styles
+  {:red "[31m"
+   :green "[32m"
+   :blue "[34m"
+   :reset "[0m"})
+(defn ansi
+  "Returns string that will apply ANSI style"
+  [style]
+  (str \u001b (style ansi-styles)))
+
+(defn colorize
+  "Apply ansi color to text"
+  [text color]
+  (str (ansi color) text (ansi :reset)))
+
+(defn render-pos
+  [board pos]
+  (str (nth letters (dec pos))
+       (if (get-in board [pos :pegged])
+         (colorize "0" :blue)
+         (colorize "-" :red))))
+
+
