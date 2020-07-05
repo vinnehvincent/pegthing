@@ -80,3 +80,49 @@
     (reduce (fn [board pos] (add-pos board max-pos pos))
             initial-board
             (range 1 (inc max-pos)))))
+(defn pegged?
+  "Does the position have a peg in it"
+  [board pos]
+  (get-in board [pos :pegged]))
+
+(defn remove-peg
+  "Take the peg at a given position out of the board"
+  [board pos]
+  (assoc-in board [pos :pegged] false))
+
+(defn place-peg
+  "Place a peg at a given position"
+  [board pos]
+  (assoc-in board [pos :pegged] true))
+
+(defn move-peg
+  "Take peg out initial-pos and move it to destination"
+  [board initial-pos destination]
+  (place-peg (remove-peg board initial-pos) destination))
+
+(defn valid-moves
+  "Return a map of valid moves for pos, where the key is the destination and
+   the value is the jumped position e.g {4 2}"
+  [board pos]
+  (into {}
+        (filter (fn [[destination jumped]]
+                  (and (not (pegged? board destination))
+                       pegged? board jumped))
+                (get-in board [pos :connections]))))
+
+(defn valid-move?
+  "Return jumped position if move is valid or return nil"
+  [board initial-pos destination]
+  (get (valid-moves board initial-pos) destination))
+
+(defn make-move
+  "Move peg from initial-pos to destination, removing jumped position"
+  [board initial-pos destination]
+  (if-let [jumped (valid-move? board initial-pos destination)]
+    (move-peg (remove-peg board jumped) initial-pos destination)))
+
+(defn can-move?
+  "Do any of the pegged positions have valid moves?"
+  [board]
+  (some (comp not-empty (partial valid-moves board))
+        (map first (filter #(get (second %) :pegged) board))))
