@@ -98,6 +98,12 @@
   (if-let [jumped (valid-move? board initial-pos destination)]
     (move-peg (remove-peg board jumped) initial-pos destination)))
 
+(defn can-move?
+  "Do any of the pegged positions have valid moves?"
+  [board]
+  (some (comp not-empty (partial valid-moves board))
+        (map first (filter #(get (second %) :pegged) board))))
+
 (deftest moving-pegs
   (testing "Is a position pegged?"
     (let [board (new-board 15)]
@@ -127,4 +133,8 @@
           new-board (make-move  board 1 4)]
       (is (= true (pegged? new-board 4)))
       (is (= false (pegged? new-board 1)))
-      (is (= false (pegged? new-board 2))))))
+      (is (= false (pegged? new-board 2)))))
+  (testing "does a board have a possible moves"
+    (let [board (new-board 15)]
+      (is (= nil (can-move? board)))
+      (is (= {4, 2} (can-move? (remove-peg board 4)))))))
