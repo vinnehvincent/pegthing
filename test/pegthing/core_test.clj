@@ -1,26 +1,6 @@
 (ns pegthing.core-test
   (:require [clojure.test :refer :all]
             [pegthing.core :refer :all]))
-(defn pegged?
-  "Does the position have a peg in it"
-  [board pos]
-  (get-in board [pos :pegged]))
-
-(defn remove-peg
-  "Take the peg at a given position out of the board"
-  [board pos]
-  (assoc-in board [pos :pegged] false))
-
-(defn place-peg
-  "Place a peg at a given position"
-  [board pos]
-  (assoc-in board [pos :pegged] true))
-
-(defn move-peg
-  "Take peg out initial-pos and move it to destination"
-  [board initial-pos destination]
-  (place-peg (remove-peg board initial-pos) destination))
-
 (deftest pegthing-test
   (testing "Tri function"
     (is (= '(1 3 6 10 15) (take 5 tri))))
@@ -75,6 +55,25 @@
             14 {:pegged true, :connections {12 13, 5 9}},
             15 {:pegged true, :connections {13 14, 6 10}},
             :rows 5} (new-board 5)))))
+(defn pegged?
+  "Does the position have a peg in it"
+  [board pos]
+  (get-in board [pos :pegged]))
+
+(defn remove-peg
+  "Take the peg at a given position out of the board"
+  [board pos]
+  (assoc-in board [pos :pegged] false))
+
+(defn place-peg
+  "Place a peg at a given position"
+  [board pos]
+  (assoc-in board [pos :pegged] true))
+
+(defn move-peg
+  "Take peg out initial-pos and move it to destination"
+  [board initial-pos destination]
+  (place-peg (remove-peg board initial-pos) destination))
 
 (defn valid-moves
   "Return a map of valid moves for pos, where the key is the destination and
