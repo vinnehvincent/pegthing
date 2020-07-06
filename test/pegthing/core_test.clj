@@ -100,3 +100,11 @@
       (= x y)
        '("a" "c" "b") (characters-as-strings "a cb")
       '("a" "b") (characters-as-strings "a     b"))))
+
+(deftest letter->pos-test
+  (testing "letter to position"
+    (are
+      [x y]
+      (= x y)
+      1 (letter->pos a)
+      15 (letter->pos u))))

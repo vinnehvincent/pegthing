@@ -178,7 +178,7 @@
     (println (render-row board row-num))))
 
 (defn letter->pos
-  "Converts letter string to correspoding position number"
+  "Converts letter string to corresponding position number"
   [letter]
   (inc (- (int (first letter))alpha-start)))
 
