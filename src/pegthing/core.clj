@@ -2,12 +2,11 @@
   (:require [clojure.set :as set])
   (:gen-class))
 
-(declare succesful-move prompt-move game-over query-rows)
+(declare succesful-move prompt-move prompt-rows game-over query-rows)
 
 (defn -main
-  "I don't do a whole lot ... yet."
   [& args]
-  (println "Hello, World!"))
+  (prompt-rows))
 (defn tri*
   "Generates a lazy sequence of triangular numbers"
   ([] (tri* 0 1))
@@ -124,8 +123,8 @@
 (defn can-move?
   "Do any of the pegged positions have valid moves?"
   [board]
-  (some (comp not-empty (partial valid-moves board))
-        (map first (filter #(get (second %) :pegged) board))))
+  (not (empty? (some (comp not-empty (partial valid-moves board))
+                     (map first (filter #(get (second %) :pegged) board))))))
 
 (def alpha-start 97)
 (def alpha-end 123)
