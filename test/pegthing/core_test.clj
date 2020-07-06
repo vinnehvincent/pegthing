@@ -93,7 +93,7 @@
       (is (= {4, 2} (can-move? (remove-peg board 4)))))))
 
 
-(deftest letter->pos-test
+(deftest characters-as-strings-test
   (testing "characters-as-strings"
     (are
       [x y]
