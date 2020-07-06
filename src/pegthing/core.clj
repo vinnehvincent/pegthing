@@ -176,3 +176,20 @@
   [board]
   (doseq [row-num (range 1 (inc (:rows board)))]
     (println (render-row board row-num))))
+
+(defn letter->pos
+  "Converts letter string to correspoding position number"
+  [letter]
+  (inc (- (int (first letter))alpha-start)))
+
+(defn get-input
+  "Waits for the user to enter text and hit enter, then cleans enter"
+  ([] (get-input nil))
+  ([default]
+   (let [input (clojure.string/trim (read-line))]
+     (if (empty? input)
+       default
+       (clojure.string/lower-case input)))))
+(defn characters-as-strings
+  [characters]
+   (map str (seq (char-array (clojure.string/replace characters #" " "")))))

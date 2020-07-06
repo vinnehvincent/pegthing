@@ -92,3 +92,11 @@
       (is (= nil (can-move? board)))
       (is (= {4, 2} (can-move? (remove-peg board 4)))))))
 
+
+(deftest letter->pos-test
+  (testing "characters-as-strings"
+    (are
+      [x y]
+      (= x y)
+       '("a" "c" "b") (characters-as-strings "a cb")
+      '("a" "b") (characters-as-strings "a     b"))))
