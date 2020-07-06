@@ -106,5 +106,5 @@
     (are
       [x y]
       (= x y)
-      1 (letter->pos a)
-      15 (letter->pos u))))
+      1 (letter->pos "a")
+      21 (letter->pos "u"))))
