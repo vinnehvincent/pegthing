@@ -106,7 +106,7 @@
   (into {}
         (filter (fn [[destination jumped]]
                   (and (not (pegged? board destination))
-                       pegged? board jumped))
+                      (pegged? board jumped)))
                 (get-in board [pos :connections]))))
 
 (defn valid-move?
@@ -123,8 +123,8 @@
 (defn can-move?
   "Do any of the pegged positions have valid moves?"
   [board]
-  (not (empty? (some (comp not-empty (partial valid-moves board))
-                     (map first (filter #(get (second %) :pegged) board))))))
+  (some (comp not-empty (partial valid-moves board))
+        (map first (filter #(get (second %) :pegged) board))))
 
 (def alpha-start 97)
 (def alpha-end 123)
@@ -211,9 +211,12 @@
   "Announces that a game is over and prompts for new game"
   [board]
   (let [remaining-pegs (count (filter :pegged (vals board)))]
-    (println "Game over! You had " remaining-pegs " pegs")
+    (println "Game over!"
+             (if (= 1 remaining-pegs)
+               (str "YOU WIN!")
+               (str "You had " remaining-pegs " pegs. Try to eliminate all the pegs")))
     (print-board board)
-    (println "Play again? y/n [y")
+    (println "Play again? y/n [y]")
     (let [input (get-input "y")]
       (if (= "y" input)
         (prompt-rows)

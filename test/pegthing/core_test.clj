@@ -89,8 +89,8 @@
       (is (= false (pegged? new-board 2)))))
   (testing "does a board have a possible moves"
     (let [board (new-board 15)]
-      (is (= false (can-move? board)))
-      (is (= true (can-move? (remove-peg board 4)))))))
+      (is (= nil (can-move? board)))
+      (is (= {4 2} (can-move? (remove-peg board 4)))))))
 
 
 (deftest characters-as-strings-test
