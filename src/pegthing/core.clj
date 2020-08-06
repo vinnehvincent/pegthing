@@ -242,7 +242,7 @@
   (println "\nHere's your board: ")
   (print-board board)
   (println "Move from where to where? Enter two letters: ")
-  (let [input (map letter->pos (characters-as-strings (get-input)))]
+  (let [input (map letter->pos (characters-as-strings (get-input " ")))]
     (if-let [new-board (make-move board (first input) (second input))]
       (user-entered-valid-move new-board)
       (user-entered-invalid-move board))))
